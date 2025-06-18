@@ -3,14 +3,12 @@
 </template>
 
 <script setup lang="ts">
+import { onMessage } from 'firebase/messaging';
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { onMessage } from 'firebase/messaging';
-import { setupFCM } from './setupFCM';
 import { messaging } from './firebase/messaging';
+import { setupFCM } from './setupFCM';
 
-
-const router = useRouter();
 
 
     // 🔐 Setup FCM

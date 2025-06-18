@@ -1,4 +1,4 @@
-import { getToken, isSupported } from "firebase/messaging";
+import { getToken } from "firebase/messaging";
 import { messaging } from "./firebase/messaging";
 
 let fcmSetupInProgress = false;
