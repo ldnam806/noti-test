@@ -1,25 +1,7 @@
 <template>
-  <div class="wrapper" @click="hideMenu">
-    <div
-      ref="textRef"
-      class="selectable-text"
-      @mouseup="handleSelection"
-      @touchend="handleSelection"
-      @contextmenu.prevent
-      @touchstart.prevent
-    >
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel turpis ut libero sollicitudin viverra.
-    </div>
-
-    <div
-      v-if="menuVisible"
-      class="menu"
-      :style="{ top: `${menuY}px`, left: `${menuX}px` }"
-    >
-      <button @click="copyText">Copy</button>
-      <button @click="shareText">Share</button>
-    </div>
-  </div>
+ <div class="custom-selectable">
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+</div>
 </template>
 
 <script setup>
@@ -69,6 +51,10 @@ const shareText = async () => {
   hideMenu();
 };
 
+['copy', 'cut', 'paste', 'contextmenu'].forEach(evt => {
+  document.addEventListener(evt, e => e.preventDefault());
+});
+
 onMounted(() => {
   document.addEventListener('selectionchange', () => {
     const text = window.getSelection().toString().trim();
@@ -82,38 +68,10 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-.wrapper {
-  padding: 20px;
-  position: relative;
-}
-
-.selectable-text {
+.custom-selectable {
   user-select: text;
   -webkit-user-select: text;
-  -webkit-touch-callout: none; /* iOS: block native copy menu */
-  -webkit-tap-highlight-color: transparent; /* Android: remove tap flash */
-  background: #f9f9d9;
-  border-radius: 6px;
-  padding: 12px;
-  font-size: 16px;
-  line-height: 1.6;
-}
-
-.menu {
-  position: absolute;
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
-  padding: 6px 10px;
-  display: flex;
-  gap: 8px;
-  z-index: 999;
-}
-
-.menu button {
-  font-size: 14px;
-  padding: 4px 8px;
-  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
 }
 </style>
